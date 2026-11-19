@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEON PALMS | Kit para clipar mais rápido com o Claude Code</title>
+<meta name="description" content="Kit de skills para o Claude Code que faz o trabalho repetitivo do clipe: achar o momento, cortar em 9:16, montar, legendar e revisar. Conteúdo independente, não afiliado.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="NEON PALMS | Kit para clipar mais rápido">
+<meta property="og:description" content="Gaste menos tempo editando clipes da sua live e gameplay. Conteúdo independente, não afiliado.">
+<meta property="og:image" content="https://SEU_DOMINIO_AQUI/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#E6197A">
+<link rel="preload" href="assets/mont.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Mont";src:url("assets/mont.woff2") format("woff2");font-weight:400 800;font-style:normal;font-display:swap}
+:root{--pink:#E6197A;--pink-soft:#FDE6F0;--pink-bg:#FFF5F9;--ink:#231A2B;--mut:#5E5568;--line:#EFDDE6;--paper:#fff;--green:#1FA75C;--green-deep:#16894a;--green-glow:rgba(31,167,92,.35);--r:18px;--sh:0 12px 30px -16px rgba(80,20,60,.28)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Mont",system-ui,sans-serif;background:var(--pink-bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:76px}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.sec{padding:60px 0}
+.sec.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+h1,h2,h3{line-height:1.18;letter-spacing:-.01em;font-weight:800}
+h1{font-size:clamp(30px,6.4vw,50px)}
+h2{font-size:clamp(25px,4.6vw,36px)}
+h3{font-size:18px}
+p{color:var(--mut)}
+.hl{color:var(--pink)}
+.eyebrow{font-size:12px;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--pink);margin-bottom:10px}
+.head{text-align:center;max-width:720px;margin:0 auto 34px}
+.head p{margin-top:12px}
+.orn{display:block;width:54px;height:4px;border-radius:4px;background:var(--pink);margin:16px auto 0}
+.offerbar{background:var(--ink);color:#fff;text-align:center;font-size:12px;font-weight:700;letter-spacing:.08em;padding:10px 14px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--pink-soft);color:var(--pink);font-weight:700;font-size:13px;padding:7px 14px;border-radius:999px;margin-bottom:16px}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--pink)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;font-weight:800;font-size:17px;text-decoration:none;padding:17px 30px;border-radius:14px;box-shadow:0 14px 28px -12px var(--green-glow);transition:transform .15s,box-shadow .15s,background .15s}
+.btn:hover{transform:translateY(-2px);background:var(--green-deep);box-shadow:0 18px 32px -12px var(--green-glow)}
+.btn.sm{font-size:15px;padding:12px 20px}
+.btn.block{width:100%;justify-content:center}
+.micro{font-size:13px;color:var(--mut);margin-top:10px}
+/* hero */
+.hero{padding:44px 0 54px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.lead{font-size:clamp(16px,2.4vw,19px);margin:16px 0 20px;max-width:560px}
+ul.checks{list-style:none;display:grid;gap:11px;margin-bottom:26px}
+ul.checks li{display:flex;gap:12px;align-items:flex-start;color:var(--ink);font-size:15.5px}
+.ck{flex:0 0 22px;height:22px;border-radius:50%;background:var(--green);display:grid;place-items:center;margin-top:2px}
+.ck svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.uso{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-size:13px;color:var(--mut)}
+.uso span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--pink);margin-right:7px;vertical-align:middle}
+.art{position:relative;justify-self:center;width:100%;max-width:400px}
+.art .vid{width:100%;max-width:340px;display:block;margin:0 auto;border-radius:26px;background:#120D18;box-shadow:var(--sh),0 0 0 6px #fff;aspect-ratio:9/16}
+.art .logo{width:78%;margin-left:auto;display:block;border-radius:26px;box-shadow:var(--sh),0 0 0 6px #fff;aspect-ratio:1/1;height:auto}
+.term{position:absolute;left:0;bottom:-26px;width:80%;background:var(--ink);border-radius:16px;padding:14px 16px;box-shadow:0 18px 38px -14px rgba(35,26,43,.6);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:#e9e2ee}
+.term b{color:#ff6fb0;font-weight:600}
+.term div{margin:3px 0}
+.term small{display:block;margin-top:8px;color:#9d93a8;font-size:10.5px;font-family:"Mont",sans-serif}
+/* faixa de fatos */
+.facts{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.fact{padding:18px 14px;text-align:center;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0}
+.fact b{display:block;font-size:15px;font-weight:800;color:var(--ink)}
+.fact span{font-size:12.5px;color:var(--mut)}
+/* dor */
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 auto 22px;max-width:760px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px;font-size:14.5px;font-weight:600;box-shadow:var(--sh)}
+.center-p{text-align:center;max-width:640px;margin:0 auto;color:var(--ink);font-size:17px}
+/* cards */
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--sh)}
+.card .n{width:38px;height:38px;border-radius:11px;background:var(--pink-soft);color:var(--pink);font-weight:800;display:grid;place-items:center;margin-bottom:12px}
+.card h3{margin-bottom:6px}
+.card p{font-size:14.5px}
+.card code,.step code,.faq code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--pink-soft);color:#a40f58;padding:2px 7px;border-radius:6px}
+.cta-row{text-align:center;margin-top:32px}
+/* comparador */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.col{border-radius:var(--r);padding:24px;border:1px solid var(--line);background:#fff}
+.col.on{border:2px solid var(--pink);box-shadow:var(--sh)}
+.col h3{margin-bottom:12px}
+.col.off h3{color:var(--mut)}
+.col ul{list-style:none;display:grid;gap:10px}
+.col li{padding-left:26px;position:relative;font-size:14.5px;color:var(--ink)}
+.col.off li{color:var(--mut)}
+.col.off li::before{content:"";position:absolute;left:3px;top:.55em;width:12px;height:2px;background:#b9aebf;border-radius:2px}
+.col.on li::before{content:"";position:absolute;left:0;top:.35em;width:16px;height:16px;border-radius:50%;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l5 5 9-10'/%3E%3C/svg%3E") center/10px no-repeat}
+.note{font-size:13px;color:var(--mut);text-align:center;margin-top:16px}
+/* skills */
+.skill{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.skill b{flex:0 0 auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:var(--pink-soft);color:#a40f58;padding:4px 9px;border-radius:8px;font-weight:600}
+.skill p{font-size:14.5px}
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+/* para quem */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.yes,.no{border-radius:var(--r);padding:24px;background:#fff;border:1px solid var(--line)}
+.yes{border-top:4px solid var(--pink)}
+.no{border-top:4px solid #cfc5d6}
+.yes h3{color:var(--pink);margin-bottom:10px}.no h3{margin-bottom:10px;color:var(--mut)}
+ul.l{list-style:none;display:grid;gap:9px}
+ul.l li{padding-left:22px;position:relative;font-size:14.5px;color:var(--ink)}
+ul.l li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--pink)}
+.no ul.l li{color:var(--mut)}.no ul.l li::before{background:#cfc5d6}
+/* oferta / preço */
+.offer{max-width:520px;margin:0 auto;background:#fff;border:2px solid var(--pink);border-radius:26px;padding:34px 28px;text-align:center;box-shadow:0 30px 60px -28px rgba(230,25,122,.5)}
+.offer .tag{display:inline-block;background:var(--pink-soft);color:var(--pink);font-weight:800;font-size:12px;letter-spacing:.12em;padding:6px 12px;border-radius:999px;margin-bottom:14px}
+.price{font-size:clamp(46px,11vw,66px);font-weight:800;line-height:1;margin:6px 0 4px}
+.price small{font-size:.36em;vertical-align:top;margin-right:4px;font-weight:700}
+.offer ul{list-style:none;text-align:left;margin:22px 0;display:grid;gap:10px}
+.offer li{display:flex;gap:10px;font-size:14.5px;color:var(--ink)}
+.offer li .ck{flex:0 0 20px;height:20px;margin-top:2px}
+.offer li .ck svg{width:11px;height:11px}
+/* steps */
+.steps{display:grid;gap:12px;max-width:760px;margin:0 auto}
+.step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+.step b{flex:0 0 40px;height:40px;border-radius:12px;background:var(--pink);color:#fff;display:grid;place-items:center;font-weight:800}
+.step h3{margin-bottom:2px;font-size:17px}
+.step p{font-size:14.5px}
+.req{max-width:760px;margin:16px auto 0;background:var(--pink-soft);border-radius:14px;padding:16px 18px;font-size:14px;color:var(--ink)}
+/* faq */
+.faq details{max-width:760px;margin:10px auto 0;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--pink);font-size:22px;line-height:1;font-weight:600}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin-top:10px;font-size:14.5px}
+/* resultado: cortes */
+.cortes{background:var(--ink);color:#fff}
+.cortes h2{color:#fff}
+.cortes .head p{color:#cfc6d6}
+.cortes .eyebrow{color:#ff6fb0}
+.cortes .hl{color:#ff6fb0}
+.cortes .orn{background:#ff6fb0}
+.cuts{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.cut{margin:0;min-width:0}
+.cut-box{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#120D18;box-shadow:0 0 0 2px rgba(255,255,255,.14),0 18px 36px -18px rgba(0,0,0,.7);cursor:pointer}
+.cut-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cut-mute{position:absolute;right:8px;bottom:8px;width:34px;height:34px;border:0;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);cursor:pointer;display:grid;place-items:center;z-index:2}
+.cut-mute::before{content:"";width:18px;height:18px;background:#fff;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 5 6 9H2v6h4l5 4V5z' fill='black'/%3E%3Cpath d='m22 9-6 6M16 9l6 6'/%3E%3C/svg%3E")}
+.cut-mute.on::before{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 5 6 9H2v6h4l5 4V5z' fill='black'/%3E%3Cpath d='M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14'/%3E%3C/svg%3E")}
+.cut-box.paused::after{content:"";position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(0,0,0,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") center/22px no-repeat;pointer-events:none}
+.cut figcaption{margin-top:9px;font-size:12.5px;font-weight:600;color:#cfc6d6;text-align:left}
+.cuts-line{text-align:center;color:#fff;font-size:clamp(18px,3vw,24px);margin-top:34px}
+.cuts-line b{color:#ff6fb0}
+.cuts-line em{font-size:.62em;color:#9d93a8;font-style:normal;font-weight:600}
+.cortes .note{color:#9d93a8}
+@media(max-width:1020px){.cuts{grid-template-columns:repeat(3,1fr);gap:14px}}
+@media(max-width:620px){
+  .cuts{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .cuts::-webkit-scrollbar{display:none}
+  .cut{flex:0 0 58%;scroll-snap-align:center}
+}
+.bonus{background:var(--ink);color:#fff}.bonus h2{color:#fff}.bonus .head p{color:#cfc6d6}.bonus .eyebrow,.bonus .hl{color:#ff6fb0}.bonus .orn{background:#ff6fb0}.bonus .card h3{color:var(--ink)}
+.brand{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}.brand img{width:36px;height:36px;border-radius:10px;display:block;box-shadow:0 6px 14px -6px rgba(230,25,122,.55)}.brand span{font-weight:800;font-size:14px;letter-spacing:.2em;color:var(--ink)}
+/* fecho / rodapé */
+.fecho{text-align:center}
+.fecho p{max-width:560px;margin:12px auto 24px}
+footer{background:var(--ink);color:#cfc6d6;padding:34px 0 26px;font-size:13px}
+footer p{color:#cfc6d6;margin-bottom:10px;max-width:860px}
+footer a{text-decoration:underline}
+footer b{color:#fff}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--line);padding:10px 16px;display:none;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -10px 24px -16px rgba(35,26,43,.3)}
+.sticky b{font-weight:800}.sticky span{font-size:12.5px;color:var(--mut)}
+/* ícones minimalistas */
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.ico-t{width:42px;height:42px;border-radius:12px;background:var(--pink-soft);color:var(--pink);display:grid;place-items:center}
+.fact .ico-t{margin:0 auto 8px;width:38px;height:38px;border-radius:11px}
+.fact .ico-t .ico{width:20px;height:20px}
+.card .ico-t{margin-bottom:12px}
+.chip{display:inline-flex;align-items:center;gap:8px}
+.chip .ico{width:18px;height:18px;color:var(--pink)}
+.yes h3,.no h3{display:flex;align-items:center;gap:10px}
+.yes h3 .ico{color:var(--pink)}.no h3 .ico{color:#a79bb0}
+@media(max-width:820px){
+  .facts .wrap{grid-template-columns:1fr 1fr}
+  .fact{border-bottom:1px solid var(--line)}
+  .fact:nth-child(2){border-right:0}
+  .hero-grid,.grid4,.grid3,.grid2,.cmp,.two,.skills{grid-template-columns:1fr}
+  .grid4{grid-template-columns:1fr 1fr}
+  .art{max-width:300px;margin:0 auto 10px;order:-1}
+  .term{position:relative;width:88%;margin:-12px 0 0 0;bottom:auto}
+  .sticky{display:flex}
+  .sec{padding:44px 0}
+}
+@media(max-width:480px){.grid4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2.5"/><path d="M8 20h8M12 16v4"/></symbol>
+<symbol id="i-nosub" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17M5 19 19 7"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+<symbol id="i-vertical" viewBox="0 0 24 24"><rect x="6.5" y="3" width="11" height="18" rx="2.5"/><path d="M10 17.5h4"/></symbol>
+<symbol id="i-caption" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7.5 11h3M13.5 11h3M7.5 15h5M15 15h1.5"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 3 3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="m7 21-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/></symbol>
+<symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 12h2M7.5 8v8M12 4.5v15M16.5 8v8M21 11v2"/></symbol>
+<symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 10h18M10 10v10"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12.2 2.3 2.3 4.2-4.6"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></symbol>
+<symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8.8 5 3.2-5 3.2V8.8Z"/></symbol>
+<symbol id="i-save" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5V4Z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="m16 11 2 2 3.5-4"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+</defs></svg>
+
+<div class="offerbar">KIT PARA CLIPAR MAIS RÁPIDO · FUNCIONA COM O CLAUDE CODE · DOWNLOAD IMEDIATO</div>
+
+<!-- 1 · HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="brand"><img src="data:image/jpeg;base64,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" alt="" width="36" height="36"><span>NEON PALMS</span></div>
+      <h1>Clipe sua live e sua gameplay <span class="hl">mais rápido</span>, sem ficar preso na timeline</h1>
+      <p class="lead">Um kit de skills para o Claude Code que faz o trabalho repetitivo do clipe: achar o momento, cortar em 9:16, montar, legendar e revisar. Você decide e aprova, o Claude executa.</p>
+      <ul class="checks">
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>Peça em linguagem normal e o Claude Code sugere os trechos com mais energia do seu vídeo</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>Corte vertical 9:16 já com layout, título e efeitos montados a partir do seu material</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>Revisão de formato e áudio antes de você postar</li>
+      </ul>
+      <a class="btn" href="#preco" data-cta>QUERO CLIPAR MAIS RÁPIDO <span>→</span></a>
+      <div class="uso"><span>Trabalha sobre a sua gravação</span></div>
+    </div>
+    <div class="art">
+      <video class="vid" src="assets/hero.mp4" poster="data:image/jpeg;base64,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" controls playsinline preload="metadata" aria-label="Vídeo: como o NEON PALMS funciona"></video>
+      <p class="micro" style="text-align:center">Vídeo ilustrativo do fluxo. Conteúdo independente, não afiliado.</p>
+    </div>
+  </div>
+</header>
+
+<!-- 1b · FAIXA DE FATOS -->
+<div class="facts"><div class="wrap">
+  <div class="fact"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-monitor"/></svg></div><b>No seu computador</b><span>O processamento do vídeo roda local</span></div>
+  <div class="fact"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-nosub"/></svg></div><b>Sem mensalidade</b><span>Pagamento único pelo kit</span></div>
+  <div class="fact"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-down"/></svg></div><b>Entrega imediata</b><span>Download e e-mail na hora</span></div>
+  <div class="fact"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-layers"/></svg></div><b>Windows, Mac e Linux</b><span>Instalador para os três</span></div>
+</div></div>
+
+<!-- 2 · DOR -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="head">
+      <h2>Gravar é a parte fácil. O difícil é publicar o clipe <span class="hl">enquanto o assunto está quente.</span></h2>
+      <span class="orn"></span>
+    </div>
+    <div class="chips">
+      <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>Procurar o trecho no vídeo todo</span>
+      <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-vertical"/></svg>Cortar e reenquadrar para 9:16</span>
+      <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-caption"/></svg>Legenda e título à mão</span>
+      <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-upload"/></svg>Exportar e conferir</span>
+      <span class="chip"><svg class="ico" aria-hidden="true"><use href="#i-repeat"/></svg>Refazer para cada clipe</span>
+    </div>
+    <p class="center-p">Cada etapa é pequena. Somadas, comem o tempo que você teria para gravar a próxima. O NEON PALMS organiza essas etapas em <b>skills</b> que o Claude Code executa por você.</p>
+  </div>
+</section>
+
+<!-- 3 · COMO O KIT TRABALHA -->
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Como o kit trabalha</div>
+      <h2>Quatro etapas feitas pelo Claude Code, uma aprovação sua</h2>
+      <span class="orn"></span>
+    </div>
+    <div class="grid4">
+      <div class="card"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-wave"/></svg></div><h3>Analisa</h3><p>Lê o áudio e o movimento do seu vídeo e sugere os melhores momentos. Você escolhe quais usar.</p></div>
+      <div class="card"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-layout"/></svg></div><h3>Monta</h3><p>Reenquadra para 9:16 e aplica layout, título, ícones e efeitos a partir de um arquivo simples.</p></div>
+      <div class="card"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-caption"/></svg></div><h3>Legenda</h3><p>Gera a legenda da fala para você revisar. Transcrição automática pode errar, por isso você confere o texto.</p></div>
+      <div class="card"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Revisa</h3><p>Confere formato, volume e riscos antes de você postar. A decisão final é sua.</p></div>
+    </div>
+    <!-- DEMONSTRAÇÃO (ativar quando houver gravação de tela PRÓPRIA do kit funcionando):
+    <div style="max-width:380px;margin:30px auto 0"><video src="assets/demo.mp4" controls playsinline style="width:100%;border-radius:20px"></video><p class="note">Demonstração real do kit trabalhando no meu computador.</p></div>
+    Não use trailer, trecho oficial de jogo nem vídeo de terceiros. -->
+    <div class="cta-row"><a class="btn" href="#preco" data-cta>QUERO O KIT <span>→</span></a></div>
+  </div>
+</section>
+
+<!-- 3b · RESULTADO: CORTES PRONTOS (vídeos em assets/) -->
+<section class="sec cortes" id="resultado">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Resultado</div>
+      <h2>Uma live de 1 hora vira <span class="hl">vários cortes prontos pra postar</span></h2>
+      <p>Lives e gameplays longas, que levariam horas para cortar na mão, viram vídeos verticais 9:16 com título e legenda.</p>
+      <span class="orn"></span>
+    </div>
+    <div class="cuts" role="list">
+      <figure class="cut" role="listitem">
+        <div class="cut-box"><video muted loop playsinline preload="none" data-poster="assets/corte1.jpg" src="assets/corte1.mp4" aria-label="Exemplo de corte vertical 1"></video><button class="cut-mute" type="button" aria-label="Ativar som"></button></div>
+        <figcaption>Corte 1 · 2:59</figcaption>
+      </figure>
+      <figure class="cut" role="listitem">
+        <div class="cut-box"><video muted loop playsinline preload="none" data-poster="assets/corte2.jpg" src="assets/corte2.mp4" aria-label="Exemplo de corte vertical 2"></video><button class="cut-mute" type="button" aria-label="Ativar som"></button></div>
+        <figcaption>Corte 2 · 0:55</figcaption>
+      </figure>
+      <figure class="cut" role="listitem">
+        <div class="cut-box"><video muted loop playsinline preload="none" data-poster="assets/corte3.jpg" src="assets/corte3.mp4" aria-label="Exemplo de corte vertical 3"></video><button class="cut-mute" type="button" aria-label="Ativar som"></button></div>
+        <figcaption>Corte 3 · 1:31</figcaption>
+      </figure>
+      <figure class="cut" role="listitem">
+        <div class="cut-box"><video muted loop playsinline preload="none" data-poster="assets/corte4.jpg" src="assets/corte4.mp4" aria-label="Exemplo de corte vertical 4"></video><button class="cut-mute" type="button" aria-label="Ativar som"></button></div>
+        <figcaption>Corte 4 · 1:18</figcaption>
+      </figure>
+      <figure class="cut" role="listitem">
+        <div class="cut-box"><video muted loop playsinline preload="none" data-poster="assets/corte5.jpg" src="assets/corte5.mp4" aria-label="Exemplo de corte vertical 5"></video><button class="cut-mute" type="button" aria-label="Ativar som"></button></div>
+        <figcaption>Corte 5 · 0:32</figcaption>
+      </figure>
+      <figure class="cut" role="listitem">
+        <div class="cut-box"><video muted loop playsinline preload="none" data-poster="assets/corte6.jpg" src="assets/corte6.mp4" aria-label="Exemplo de corte vertical 6"></video><button class="cut-mute" type="button" aria-label="Ativar som"></button></div>
+        <figcaption>Corte 6 · 2:00</figcaption>
+      </figure>
+    </div>
+    <p class="cuts-line">1 live de <b>1h</b> → <b>6 cortes</b> prontos pra postar <em>(exemplo)</em></p>
+    <p class="note">Vídeos ilustrativos do formato. O tempo economizado varia conforme o seu computador, o tamanho do vídeo e o quanto você ajusta.</p>
+  </div>
+</section>
+
+<!-- 4 · COMPARADOR -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Antes e depois</div>
+      <h2>O mesmo clipe, com menos etapas na sua mão</h2>
+      <span class="orn"></span>
+    </div>
+    <div class="cmp">
+      <div class="col off"><h3>Do jeito manual</h3><ul>
+        <li>Abrir o editor e importar o vídeo</li>
+        <li>Assistir para achar o trecho certo</li>
+        <li>Cortar e reenquadrar para vertical</li>
+        <li>Criar título, legenda e efeitos</li>
+        <li>Exportar e conferir o resultado</li></ul></div>
+      <div class="col on"><h3 class="hl">Com o NEON PALMS</h3><ul>
+        <li>Você pede o corte ao Claude Code</li>
+        <li>Ele sugere os trechos pelo áudio e movimento</li>
+        <li>Monta o vertical com título e efeitos</li>
+        <li>Gera a legenda para você revisar</li>
+        <li>Revisa formato e áudio, e você aprova</li></ul></div>
+    </div>
+    <p class="note">O tempo economizado varia conforme o seu computador, o tamanho do vídeo e o quanto você ajusta. O kit não promete um tempo fixo.</p>
+  </div>
+</section>
+
+<!-- 5 · O QUE VEM NO KIT -->
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">O que vem no kit</div>
+      <h2>7 skills para o Claude Code, mais o material de apoio</h2>
+      <p>Não é curso de edição: é um kit que faz o trabalho repetitivo junto com você.</p>
+      <span class="orn"></span>
+    </div>
+    <div class="skills">
+      <div class="skill"><b>clipe-rapido</b><p>A skill mestra: conduz o fluxo do vídeo bruto ao corte pronto.</p></div>
+      <div class="skill"><b>clipe-preparar-ambiente</b><p>Confere o que falta no computador e cria a pasta de trabalho.</p></div>
+      <div class="skill"><b>clipe-analisar-momentos</b><p>Sugere os melhores trechos pelo áudio e pelo movimento.</p></div>
+      <div class="skill"><b>clipe-legendar</b><p>Gera o arquivo de legenda da fala para você revisar.</p></div>
+      <div class="skill"><b>clipe-montar-corte</b><p>Monta o vertical 9:16 a partir de um arquivo de projeto.</p></div>
+      <div class="skill"><b>clipe-banco-de-edicoes</b><p>Busca ícones e efeitos sonoros do banco incluso.</p></div>
+      <div class="skill"><b>clipe-revisar</b><p>Confere formato, áudio e riscos antes de postar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5b · BÔNUS -->
+<section class="sec bonus" id="bonus">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Bônus</div>
+      <h2>Bônus que vêm <span class="hl">junto com o kit</span></h2>
+      <p>Material de apoio para você começar o primeiro corte sem travar.</p>
+      <span class="orn"></span>
+    </div>
+    <div class="grid4">
+      <div class="card"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-grid"/></svg></div><h3>Template de edição</h3><p>Projeto pronto para o seu corte, ajustável por um arquivo simples.</p></div>
+      <div class="card"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-music"/></svg></div><h3>Banco de edições básico</h3><p>26 ícones e 18 efeitos sonoros originais, mais prompts para gerar imagens próprias.</p></div>
+      <div class="card"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg></div><h3>Tutoriais e prompts</h3><p>6 tutoriais em texto, 3 vídeos curtos e prompts prontos para colar no Claude Code.</p></div>
+      <div class="card"><div class="ico-t"><svg class="ico" aria-hidden="true"><use href="#i-save"/></svg></div><h3>Seu jeito, salvo</h3><p>Seu projeto fica num arquivo que você reaproveita em cada clipe, trocando só o vídeo e o texto.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · PARA QUEM É -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="head"><h2>Para quem é, e para quem não é</h2><span class="orn"></span></div>
+    <div class="two">
+      <div class="yes"><h3><svg class="ico" aria-hidden="true"><use href="#i-user"/></svg>É para você se</h3><ul class="l">
+        <li>Você grava a sua própria live ou gameplay.</li>
+        <li>Quer reduzir o trabalho repetitivo de cada clipe.</li>
+        <li>Já usa (ou vai usar) o Claude Code.</li>
+        <li>Faz conteúdo de jogos e quer publicar com mais agilidade.</li>
+        <li>Paga editor ou perde horas editando e quer produzir mais por conta própria.</li></ul></div>
+      <div class="no"><h3><svg class="ico" aria-hidden="true"><use href="#i-ban"/></svg>Não é para você se</h3><ul class="l">
+        <li>Quer cortar vídeo de outras pessoas sem autorização.</li>
+        <li>Espera garantia de visualizações, seguidores ou dinheiro.</li>
+        <li>Quer que tudo saia pronto sem você olhar o resultado.</li>
+        <li>Não pode instalar programas no computador.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · PREÇO -->
+<section class="sec" id="preco">
+  <div class="wrap">
+    <div class="offer">
+      <span class="tag">NEON PALMS</span>
+      <div class="price"><small>R$</small>19,90</div>
+      <p style="font-size:14px">Pagamento único. Download imediato.</p>
+      <ul>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>7 skills para o Claude Code, com instalador</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>Template de edição para cortes verticais 9:16</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>Banco básico: 26 ícones e 18 efeitos sonoros</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>6 tutoriais em texto e 3 em vídeo</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>Prompts prontos para o Claude Code</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l5 5 9-10"/></svg></span>Sem mensalidade do kit, com acesso imediato por download e e-mail</li>
+      </ul>
+      <a class="btn block" id="cta-compra" href="CHECKOUT_URL_AQUI" data-cta data-checkout>COMPRAR O KIT AGORA</a>
+      <!-- Formas de pagamento (Pix, cartão, parcelamento): preencher conforme a plataforma de checkout. Parcelar pode custar mais que o valor à vista: mostre só o que o checkout calcular. -->
+      <p class="micro">O plano do Claude Code é pago à parte, direto com a Anthropic.<br>Na etapa seguinte pode aparecer uma oferta opcional de banco de edições extra.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · COMO FUNCIONA -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">Como funciona</div><h2>Do download ao primeiro corte</h2><span class="orn"></span></div>
+    <div class="steps">
+      <div class="step"><b>1</b><div><h3>Instale</h3><p>Descompacte a pasta e rode o instalador (<code>instalar.bat</code> no Windows, <code>instalar.sh</code> no Mac e Linux).</p></div></div>
+      <div class="step"><b>2</b><div><h3>Prepare o ambiente</h3><p>No Claude Code, peça: <code>use a skill clipe-preparar-ambiente</code>. Ele confere o que falta e pede sua permissão antes de instalar.</p></div></div>
+      <div class="step"><b>3</b><div><h3>Peça o corte</h3><p>Coloque seu vídeo na pasta de trabalho e peça: <code>use a skill clipe-rapido</code>.</p></div></div>
+      <div class="step"><b>4</b><div><h3>Aprove e poste</h3><p>Veja a prévia, peça ajustes pequenos, deixe renderizar e revise antes de publicar.</p></div></div>
+    </div>
+    <div class="req"><b>Requisitos:</b> Claude Code instalado e funcionando, Node.js 18+, Python 3.8+ e ffmpeg. O acesso ao Claude é contratado à parte, direto com a Anthropic. Confira os requisitos e planos no site oficial antes de comprar.</div>
+  </div>
+</section>
+
+<!-- 9 · FAQ -->
+<section class="sec faq">
+  <div class="wrap">
+    <div class="head"><h2>Perguntas frequentes</h2><span class="orn"></span></div>
+    <details><summary>Ele clipa em tempo real, durante a live?</summary><p>Não. O kit trabalha sobre a gravação: depois da live ou do take, ele analisa, sugere os melhores momentos e monta o corte. Não há promessa de tempo fixo, porque depende do seu computador e do tamanho do vídeo.</p></details>
+    <details><summary>Preciso saber editar vídeo?</summary><p>Não. O Claude Code conduz o fluxo e você aprova cada etapa. Mas é preciso ter o Claude Code funcionando no seu computador.</p></details>
+    <details><summary>Preciso de plano pago do Claude? O kit inclui o acesso?</summary><p>O kit não inclui o acesso ao Claude: ele é contratado à parte, direto com a Anthropic. Na página oficial de planos, o Claude Code aparece como não incluído no plano gratuito e incluído nos planos pagos. Os planos e preços mudam, então confira a página oficial antes de comprar.</p></details>
+    <details><summary>Funciona no Windows, Mac e Linux?</summary><p>O kit traz instalador para os três. O instalador de Windows ainda está em fase de testes: se algo falhar, o tutorial 06 traz o passo manual e você pode pedir ajuda por e-mail.</p></details>
+    <details><summary>A edição é 100% automática?</summary><p>Não. As etapas repetitivas são automatizadas, mas você escolhe os trechos e confere o resultado antes de postar.</p></details>
+    <details><summary>Dá para usar pelo celular?</summary><p>Não. O kit usa Node, Python e ffmpeg, então precisa de um computador com Windows, Mac ou Linux.</p></details>
+    <details><summary>Tem mensalidade?</summary><p>O kit é pagamento único, sem mensalidade. O plano do Claude é pago à parte, direto com a Anthropic.</p></details>
+    <details><summary>Meus vídeos são enviados para algum lugar?</summary><p>Os scripts do kit cortam e montam o vídeo no seu computador e não enviam o arquivo para nenhum servidor nosso. Já o Claude Code conversa com os servidores da Anthropic: o que ele ler (por exemplo, textos e imagens de prévia) segue as regras de privacidade deles. Confira no site oficial.</p></details>
+    <details><summary>Funciona com qualquer jogo?</summary><p>O kit trabalha sobre o seu vídeo, então não depende de um jogo específico. Use apenas gravações suas ou que você tenha autorização para usar.</p></details>
+    <details><summary>Posso usar vídeos de outro criador?</summary><p>Não. O kit foi feito para processar o <b>seu</b> material. Use apenas vídeos seus ou que você tenha autorização para usar.</p></details>
+    <details><summary>O kit garante visualizações, viralização ou ganhos?</summary><p>Não. Ele acelera etapas da edição. Resultado depende do seu conteúdo, da sua audiência e da plataforma.</p></details>
+    <details><summary>É um produto oficial de algum jogo?</summary><p>Não. NEON PALMS é um produto independente e não é afiliado, patrocinado nem endossado por nenhum estúdio de jogos nem pela Anthropic.</p></details>
+    <details><summary>Como funciona o reembolso?</summary><p>Veja a <a href="#" id="link-reembolso">política de reembolso</a>. <!-- TEXTO PENDENTE: publicar só depois da revisão do advogado --></p></details>
+    <details><summary>Como recebo o kit?</summary><p>Logo após a confirmação do pagamento, você acessa o download na página de obrigado e recebe o link por e-mail.</p></details>
+  </div>
+</section>
+
+<!-- QUEM FEZ (ativar quando o dono quiser aparecer): foto REAL + 2 linhas sobre quem criou o kit e por quê. Sem resultados de views, seguidores ou dinheiro. -->
+
+<!-- 10 · FECHO -->
+<section class="sec alt fecho">
+  <div class="wrap">
+    <h2>Pronto para fazer o <span class="hl">primeiro clipe mais rápido?</span></h2>
+    <p>Instale, siga o tutorial e comece com o seu material.</p>
+    <a class="btn" href="CHECKOUT_URL_AQUI" data-cta data-checkout>QUERO O KIT POR R$ 19,90 <span>→</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>NEON PALMS</b> é um produto independente. Não é afiliado, patrocinado, endossado nem aprovado por nenhum estúdio de jogos, pela Rockstar Games, pela Take-Two Interactive nem pela Anthropic. Todos os nomes e marcas citados pertencem aos seus respectivos donos e são usados apenas de forma descritiva.</p>
+    <p>O kit não promete visualizações, viralização nem ganhos financeiros. Use apenas conteúdo seu ou que você tenha autorização para usar.</p>
+    <p><a href="#" id="link-termos">Termos de uso</a> · <a href="#" id="link-priv">Política de privacidade</a> · <a href="#" id="link-reemb">Reembolso</a> · Contato: <a href="mailto:SEU_EMAIL@AQUI">SEU_EMAIL@AQUI</a></p>
+    <p>© <span id="ano"></span> NEON PALMS. CNPJ/CPF e razão social: a preencher.</p>
+  </div>
+</footer>
+
+<div class="sticky">
+  <div><b>R$ 19,90</b><br><span>Kit NEON PALMS</span></div>
+  <a class="btn sm" href="#preco" data-cta>Quero o kit</a>
+</div>
+
+<script>
+/* ===== CONFIGURAÇÃO (edite só aqui) ===== */
+var CHECKOUT_URL = "CHECKOUT_URL_AQUI";   // link do checkout da sua plataforma
+var PIXEL_ID     = "SEU_PIXEL_ID";        // ID do pixel do Meta; deixe como está para desativar
+/* ======================================== */
+
+document.getElementById("ano").textContent = new Date().getFullYear();
+
+/* repassa UTMs da página para o checkout */
+(function(){
+  var qs = window.location.search;
+  document.querySelectorAll("[data-checkout]").forEach(function(a){
+    if (CHECKOUT_URL !== "CHECKOUT_URL_AQUI") {
+      a.href = CHECKOUT_URL + (qs ? (CHECKOUT_URL.indexOf("?")>-1 ? "&" : "?") + qs.slice(1) : "");
+    }
+  });
+})();
+
+/* Meta Pixel: só carrega se o ID foi preenchido.
+   LGPD: carregue o pixel apenas após consentimento, conforme orientação do seu advogado. */
+(function(){
+  if (PIXEL_ID === "SEU_PIXEL_ID") return;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+  fbq("init", PIXEL_ID);
+  fbq("track", "PageView");
+  fbq("track", "ViewContent", {content_name:"NEON PALMS", value:19.90, currency:"BRL"});
+  document.querySelectorAll("[data-checkout]").forEach(function(a){
+    a.addEventListener("click", function(){ fbq("track","InitiateCheckout",{value:19.90,currency:"BRL"}); });
+  });
+})();
+</script>
+<script>
+/* cortes: toca só o que está na tela, sem som; botão liga o som; toque pausa/retoma */
+(function(){
+  var boxes = document.querySelectorAll(".cut-box");
+  if (!boxes.length) return;
+  var lazy = new Set();
+  function loadPoster(v){ if (v.dataset.poster){ v.poster = v.dataset.poster; v.removeAttribute("data-poster"); } }
+  if ("IntersectionObserver" in window){
+    var pio = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ loadPoster(e.target.querySelector("video")); pio.unobserve(e.target); } }); }, {rootMargin:"600px 400px"});
+    boxes.forEach(function(b){ pio.observe(b); });
+  } else { boxes.forEach(function(b){ loadPoster(b.querySelector("video")); }); }
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function play(v, box){ var p = v.play(); if (p && p.catch) p.catch(function(){}); box.classList.remove("paused"); }
+  boxes.forEach(function(box){
+    var v = box.querySelector("video"), m = box.querySelector(".cut-mute");
+    box._manual = false;
+    if (reduce) box.classList.add("paused");
+    m.addEventListener("click", function(e){
+      e.stopPropagation();
+      v.muted = !v.muted;
+      m.classList.toggle("on", !v.muted);
+      m.setAttribute("aria-label", v.muted ? "Ativar som" : "Desativar som");
+      if (!v.muted){
+        boxes.forEach(function(o){ if (o !== box){ var ov = o.querySelector("video"); ov.muted = true; o.querySelector(".cut-mute").classList.remove("on"); } });
+        play(v, box);
+      }
+    });
+    box.addEventListener("click", function(){
+      if (v.paused){ box._manual = false; play(v, box); }
+      else { box._manual = true; v.pause(); box.classList.add("paused"); }
+    });
+  });
+  if (!("IntersectionObserver" in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      var box = en.target, v = box.querySelector("video");
+      if (en.isIntersecting){ if (!box._manual && !reduce) play(v, box); }
+      else { v.pause(); }
+    });
+  }, {threshold:.6});
+  boxes.forEach(function(b){ io.observe(b); });
+})();
+</script>
+</body>
+</html>
